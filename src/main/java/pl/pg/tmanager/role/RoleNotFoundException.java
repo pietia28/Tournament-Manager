@@ -1,4 +1,4 @@
-package pl.pg.tmanager.exception;
+package pl.pg.tmanager.role;
 
 public class RoleNotFoundException extends RuntimeException{
     public RoleNotFoundException() {

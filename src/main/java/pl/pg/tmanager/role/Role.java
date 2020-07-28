@@ -3,12 +3,9 @@ package pl.pg.tmanager.role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.hibernate.validator.constraints.pl.NIP;
-import org.hibernate.validator.constraints.pl.REGON;
+import pl.pg.tmanager.dtoMapping.annotation.Dto;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,11 +15,13 @@ import javax.validation.constraints.Size;
 @ToString
 @Entity
 @Table(name = "roles")
-public class Role {
+ public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Dto
     @NotNull
     @NotBlank
     @Size(max = 40)

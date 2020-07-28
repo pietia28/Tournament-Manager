@@ -2,13 +2,12 @@ package pl.pg.tmanager.interfaces;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-public interface CrudOperations<T> {
+public interface CrudDtoMapping<T> {
 
-    void save(T t);
+    Map<String, Object> save(T t);
     public List<Map<String, Object>> findAll();
-    Optional<T> findById(Long id);
-    void delete(T t);
+    Map<String, Object> findById(Long id);
+    Map<String, Object> delete(Long id);
     Long count();
 }

@@ -1,68 +1,43 @@
 package pl.pg.tmanager.role;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.pg.tmanager.exception.ExceptionJSONInfo;
-import pl.pg.tmanager.exception.RoleNotFoundException;
-import pl.pg.tmanager.message.MessagesHandler;
+import pl.pg.tmanager.message.Message;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
 
-    private final Validator validator;
-    private final RoleService roleService;
-    private final MessagesHandler<Role> messagesHandler;
-    private Map<String, Object> response;
 
-    public RoleController(
-            RoleService roleService, Validator validator, MessagesHandler<Role> messagesHandler) {
+    private final RoleService roleService;
+
+    public RoleController(RoleService roleService) {
         this.roleService = roleService;
-        this.validator = validator;
-        this.messagesHandler = messagesHandler;
     }
 
     @PostMapping("")
     public Map<String, Object> save(@RequestBody Role role) {
-        response = new HashMap<>();
-        Set<ConstraintViolation<Role>> violations = validator.validate(role);
-        if (!violations.isEmpty()) {
-            Map<String, List<String>> errors;
-            errors = messagesHandler.getValidationMessage(validator, role);
-            response.put("status", "validation error " + errors);
-        } else {
-            roleService.save(role);
-            response.put("status", "ok");
-        }
-        return response;
+        return roleService.save(role);
     }
 
     @GetMapping("")
-    public List<Role> findAll() {
+    public List<Map<String, Object>> findAll() {
         return roleService.findAll();
     }
 
-    @PostMapping("/{id}")
-    public Role findById(@PathVariable Long id) {
-        Optional<Role> optionalRole = roleService.findById(id);
-        return optionalRole
-                .orElseThrow(() -> new RoleNotFoundException("not found"));
+    @GetMapping("/{id}")
+    public Map<String, Object> findById(@PathVariable Long id) {
+        return roleService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     public Map<String, Object> delete(@PathVariable Long id) {
-        response = new HashMap<>();
-        Optional<Role> optionalRole = roleService.findById(id);
-        optionalRole.orElseThrow(
-                () -> new RoleNotFoundException("not found")
-        );
-        roleService.delete(optionalRole.get());
-        response.put("status", "ok");
-        return response;
+        return roleService.delete(id);
     }
 
     @GetMapping("/count")
@@ -72,14 +47,15 @@ public class RoleController {
 
     @ExceptionHandler(RoleNotFoundException.class)
     @ResponseBody
-    private ExceptionJSONInfo handleAuthorNotFoundException(HttpServletRequest request, Exception ex){
+    private ExceptionJSONInfo handleRoleNotFoundException(HttpServletRequest request, Exception ex){
 
         ExceptionJSONInfo exceptionJSONInfo = new ExceptionJSONInfo();
         exceptionJSONInfo.setUrl(request.getRequestURL().toString());
         exceptionJSONInfo.setMessage(ex.getMessage());
-        exceptionJSONInfo.setStatus("error");
+        exceptionJSONInfo.setStatus(Message.ERROR);
 
         return exceptionJSONInfo;
     }
 
 }
+//TODO sprawdzić modyfikatory dostępu
