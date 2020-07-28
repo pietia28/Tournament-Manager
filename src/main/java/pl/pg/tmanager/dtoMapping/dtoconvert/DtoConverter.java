@@ -1,8 +1,8 @@
 package pl.pg.tmanager.dtoMapping.dtoconvert;
 
 import org.springframework.stereotype.Component;
-import pl.pg.tools.dtomapping.annotation.Dto;
-import pl.pg.tools.dtomapping.annotation.HasForeignEntity;
+import pl.pg.tmanager.dtoMapping.annotation.Dto;
+import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
