@@ -1,5 +1,6 @@
 package pl.pg.tmanager.dtoMapping.dtoconvert;
 
+import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.stereotype.Component;
 import pl.pg.tmanager.dtoMapping.annotation.Dto;
 import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
@@ -22,12 +23,32 @@ public class DtoConverter<T> {
                 .filter(f -> !f.isEmpty())
                 .forEach(
                         f -> {
-                            ArrayList<Object> foreignEntityDto = (ArrayList<Object>) finalResult.get(f);
-                            finalResult.replace(f, getForeignEntityDto(foreignEntityDto));
+                            PersistentBag pb = (PersistentBag) finalResult.get(f);
+                            String cName = pb.get(0).getClass().getCanonicalName();
+                            try {
+                                Class<?> c = Class.forName(cName);
+                                List<Object>  foreignEntityDao = new ArrayList<>();
+                                pb.forEach(
+                                        p -> foreignEntityDao.add(c.cast(p))
+                                );
+                                finalResult.replace(f, getForeignEntityDto(foreignEntityDao));
+
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                 );
 
         return result;
+    }
+
+    private List<Map<String, Object>> getForeignEntityDto(List<Object> foreignEntityDto) {
+
+        return foreignEntityDto.stream()
+                .filter(Objects::nonNull)
+                .map(this::getAnnotatesFields)
+                .collect(Collectors.toList());
     }
 
     public T DtoToEntity(Object object, T t) {
@@ -62,14 +83,6 @@ public class DtoConverter<T> {
 
     }
 
-    private List<Map<String, Object>> getForeignEntityDto(ArrayList<Object> foreignEntityDto) {
-
-        return foreignEntityDto.stream()
-                .filter(Objects::nonNull)
-                .map(this::getAnnotatesFields)
-                .collect(Collectors.toList());
-    }
-
     private Map<String, Object> getAnnotatesFields(Object o) {
 
         Class<?> entityClass = o.getClass();
@@ -89,7 +102,6 @@ public class DtoConverter<T> {
                             }
                         }
                 );
-
         return dtoMap;
     }
 

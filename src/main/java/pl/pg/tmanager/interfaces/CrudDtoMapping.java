@@ -6,7 +6,7 @@ import java.util.Map;
 public interface CrudDtoMapping<T> {
 
     Map<String, Object> save(T t);
-    public List<Map<String, Object>> findAll();
+    List<Map<String, Object>> findAll();
     Map<String, Object> findById(Long id);
     Map<String, Object> delete(Long id);
     Long count();

@@ -1,53 +1,51 @@
-package pl.pg.tmanager.role;
+package pl.pg.tmanager.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.pg.tmanager.exception.ExceptionJSONInfo;
 import pl.pg.tmanager.message.Message;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/role")
-public class RoleController {
+@RequestMapping("/user")
+public class UserController {
+    private final UserService userService;
 
-
-    private final RoleService roleService;
-
-    public RoleController(RoleService roleService) {
-        this.roleService = roleService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("")
-    public Map<String, Object> save(@RequestBody Role role) {
-        return roleService.save(role);
+    public Map<String, Object> save(@RequestBody User user) {
+        return userService.save(user);
     }
 
     @GetMapping("")
     public List<Map<String, Object>> findAll() {
-        return roleService.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public Map<String, Object> findById(@PathVariable Long id) {
-        return roleService.findById(id);
+        return userService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     public Map<String, Object> delete(@PathVariable Long id) {
-        return roleService.delete(id);
+        return userService.delete(id);
     }
 
     @GetMapping("/count")
     public Long count() {
-        return roleService.count();
+        return userService.count();
     }
 
-    @ExceptionHandler(RoleNotFoundException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     @ResponseBody
-    private ExceptionJSONInfo handleRoleNotFoundException(HttpServletRequest request, Exception ex){
+    private ExceptionJSONInfo handleUserNotFoundException(HttpServletRequest request, Exception ex){
 
         ExceptionJSONInfo exceptionJSONInfo = new ExceptionJSONInfo();
         exceptionJSONInfo.setUrl(request.getRequestURL().toString());
@@ -56,6 +54,4 @@ public class RoleController {
 
         return exceptionJSONInfo;
     }
-
 }
-//TODO sprawdzić modyfikatory dostępu
