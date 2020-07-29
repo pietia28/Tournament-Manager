@@ -1,8 +1,6 @@
 package pl.pg.tmanager.voivodeship;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import pl.pg.tmanager.dtoMapping.annotation.Dto;
 
 import javax.persistence.*;
@@ -10,9 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "voivodeships")
 public class Voivodeship {

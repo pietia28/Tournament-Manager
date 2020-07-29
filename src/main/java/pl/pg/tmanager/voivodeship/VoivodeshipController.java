@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @RestController
 @RequestMapping("/voivodeship")
 public class VoivodeshipController {

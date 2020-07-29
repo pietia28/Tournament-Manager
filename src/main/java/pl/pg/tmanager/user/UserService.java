@@ -1,5 +1,6 @@
 package pl.pg.tmanager.user;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.pg.tmanager.dtoMapping.dtoconvert.DtoConverter;
 import pl.pg.tmanager.interfaces.CrudDtoMapping;
@@ -9,6 +10,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.*;
 
+@Slf4j
 @Service
 public class UserService implements CrudDtoMapping<User> {
     private final UserRepository userRepository;

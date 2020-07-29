@@ -1,6 +1,5 @@
 package pl.pg.tmanager.role;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.pg.tmanager.exception.ExceptionJSONInfo;
 import pl.pg.tmanager.message.Message;
@@ -8,7 +7,6 @@ import pl.pg.tmanager.message.Message;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-@Slf4j
 @RestController
 @RequestMapping("/role")
 public class RoleController {

@@ -1,4 +1,4 @@
-package pl.pg.tmanager.user;
+package pl.pg.tmanager.stadium;
 
 import org.springframework.web.bind.annotation.*;
 import pl.pg.tmanager.exception.ExceptionJSONInfo;
@@ -8,42 +8,42 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
-    private final UserService userService;
+@RequestMapping("/stadium")
+public class StadiumController {
+    private final StadiumService stadiumService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public StadiumController(StadiumService stadiumService) {
+        this.stadiumService = stadiumService;
     }
 
     @PostMapping("")
-    public Map<String, Object> save(@RequestBody User user) {
-        return userService.save(user);
+    public Map<String, Object> save(@RequestBody Stadium stadium) {
+        return stadiumService.save(stadium);
     }
 
     @GetMapping("")
     public List<Map<String, Object>> findAll() {
-        return userService.findAll();
+        return stadiumService.findAll();
     }
 
     @GetMapping("/{id}")
     public Map<String, Object> findById(@PathVariable Long id) {
-        return userService.findById(id);
+        return stadiumService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     public Map<String, Object> delete(@PathVariable Long id) {
-        return userService.delete(id);
+        return stadiumService.delete(id);
     }
 
     @GetMapping("/count")
     public Long count() {
-        return userService.count();
+        return stadiumService.count();
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(StadiumNotFoundException.class)
     @ResponseBody
-    private ExceptionJSONInfo handleUserNotFoundException(HttpServletRequest request, Exception ex){
+    private ExceptionJSONInfo handleStadiumNotFoundException(HttpServletRequest request, Exception ex){
 
         ExceptionJSONInfo exceptionJSONInfo = new ExceptionJSONInfo();
         exceptionJSONInfo.setUrl(request.getRequestURL().toString());
