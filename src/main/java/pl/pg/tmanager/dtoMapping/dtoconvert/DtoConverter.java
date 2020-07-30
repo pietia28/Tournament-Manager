@@ -1,16 +1,12 @@
 package pl.pg.tmanager.dtoMapping.dtoconvert;
 
-import lombok.extern.log4j.Log4j;
-import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.stereotype.Component;
 import pl.pg.tmanager.dtoMapping.annotation.Dto;
 import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class DtoConverter<T> {
@@ -26,12 +22,12 @@ public class DtoConverter<T> {
                 .filter(f -> !f.isEmpty())
                 .forEach(
                         f -> {
-                            String cName = finalResult.get(f).getClass().getCanonicalName();
+                            String className = finalResult.get(f).getClass().getCanonicalName();
                             try {
-                                Class<?> c = Class.forName(cName);
-                                List<Object>  foreignEntityDao = new ArrayList<>();
-                                foreignEntityDao.add(c.cast(finalResult.get(f)));
-                                finalResult.replace(f, getForeignEntityDto(foreignEntityDao));
+                                Class<?> c = Class.forName(className);
+                                List<Object> foreignEntityDto = new ArrayList<>();
+                                foreignEntityDto.add(c.cast(finalResult.get(f)));
+                                finalResult.replace(f, getForeignEntityDto(foreignEntityDto));
 
                             } catch (ClassNotFoundException e) {
                                 e.printStackTrace();
@@ -44,17 +40,14 @@ public class DtoConverter<T> {
     }
 
     private List<Map<String, Object>> getForeignEntityDto(List<Object> foreignEntityDto) {
-        List<Map<String, Object>> test = new ArrayList<>();
+        List<Map<String, Object>> foreignDto = new ArrayList<>();
 
         //temp solution
         if (foreignEntityDto.get(0) instanceof List) {
             ((List) foreignEntityDto.get(0)).forEach(
-                    f -> {
-                        test.add(getAnnotatesFields(f));
-                        System.out.println(f);
-                    }
+                    f -> foreignDto.add(getAnnotatesFields(f))
             );
-             return test;
+             return foreignDto;
         }
 
         return foreignEntityDto.stream()
