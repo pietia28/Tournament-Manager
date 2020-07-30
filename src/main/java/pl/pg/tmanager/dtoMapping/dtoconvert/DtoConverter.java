@@ -126,3 +126,4 @@ public class DtoConverter<T> {
     }
 }
 //TODO przerobić if z getForeignEntityDto na stream()
+//TODO Poprawić metodę DtoToEntity tak, żeby nie występwał problem z walidacją
