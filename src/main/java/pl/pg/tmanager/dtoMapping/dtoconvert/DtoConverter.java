@@ -8,7 +8,9 @@ import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class DtoConverter<T> {
@@ -44,12 +46,17 @@ public class DtoConverter<T> {
     private List<Map<String, Object>> getForeignEntityDto(List<Object> foreignEntityDto) {
         List<Map<String, Object>> test = new ArrayList<>();
 
-        if (foreignEntityDto.get(0) instanceof PersistentBag) {
-            ((PersistentBag) foreignEntityDto.get(0)).forEach(
-                    f -> test.add(getAnnotatesFields(f))
+        //temp solution
+        if (foreignEntityDto.get(0) instanceof List) {
+            ((List) foreignEntityDto.get(0)).forEach(
+                    f -> {
+                        test.add(getAnnotatesFields(f));
+                        System.out.println(f);
+                    }
             );
              return test;
         }
+
         return foreignEntityDto.stream()
                 .filter(Objects::nonNull)
                 .map(this::getAnnotatesFields)
@@ -125,3 +132,4 @@ public class DtoConverter<T> {
         return entityNamesList;
     }
 }
+//TODO przerobić if z getForeignEntityDto na stream()
