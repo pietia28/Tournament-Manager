@@ -1,5 +1,6 @@
 package pl.pg.tmanager.dtoMapping.dtoconvert;
 
+import lombok.extern.log4j.Log4j;
 import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.stereotype.Component;
 import pl.pg.tmanager.dtoMapping.annotation.Dto;
@@ -23,14 +24,11 @@ public class DtoConverter<T> {
                 .filter(f -> !f.isEmpty())
                 .forEach(
                         f -> {
-                            PersistentBag pb = (PersistentBag) finalResult.get(f);
-                            String cName = pb.get(0).getClass().getCanonicalName();
+                            String cName = finalResult.get(f).getClass().getCanonicalName();
                             try {
                                 Class<?> c = Class.forName(cName);
                                 List<Object>  foreignEntityDao = new ArrayList<>();
-                                pb.forEach(
-                                        p -> foreignEntityDao.add(c.cast(p))
-                                );
+                                foreignEntityDao.add(c.cast(finalResult.get(f)));
                                 finalResult.replace(f, getForeignEntityDto(foreignEntityDao));
 
                             } catch (ClassNotFoundException e) {
@@ -44,12 +42,20 @@ public class DtoConverter<T> {
     }
 
     private List<Map<String, Object>> getForeignEntityDto(List<Object> foreignEntityDto) {
+        List<Map<String, Object>> test = new ArrayList<>();
 
+        if (foreignEntityDto.get(0) instanceof PersistentBag) {
+            ((PersistentBag) foreignEntityDto.get(0)).forEach(
+                    f -> test.add(getAnnotatesFields(f))
+            );
+             return test;
+        }
         return foreignEntityDto.stream()
                 .filter(Objects::nonNull)
                 .map(this::getAnnotatesFields)
                 .collect(Collectors.toList());
     }
+
 
     public T DtoToEntity(Object object, T t) {
 
