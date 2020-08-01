@@ -18,26 +18,22 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-    @Dto
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Dto
     @NotNull
     @NotBlank
     @Size(max = 30)
     @Column(name = "first_name", length = 30)
     private String firstName;
 
-    @Dto
     @NotNull
     @NotBlank
     @Size(max = 30)
     @Column(name = "last_name", length = 30)
     private String lastName;
 
-    @Dto
     @NotNull
     @NotBlank
     @Size(max = 30)
@@ -50,14 +46,12 @@ public class User {
     @Column(length = 255)
     private String password;
 
-    @Dto
     @NotNull
     @NotBlank
     @Size(max = 60)
     @Column(length = 60, unique = true)
     private String email;
 
-    @Dto
     @Size(max = 15)
     @Column(length = 15, unique = true)
     private String mobile;

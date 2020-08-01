@@ -1,18 +1,19 @@
 package pl.pg.tmanager.role;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.pg.tmanager.dtoMapping.dtoconvert.DtoConverter;
-import pl.pg.tmanager.interfaces.CrudDtoMapping;
 import pl.pg.tmanager.message.Message;
 import pl.pg.tmanager.message.MessagesHandler;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Slf4j
 @Service
-public class RoleService implements CrudDtoMapping<Role> {
+public class RoleService {
 
     private final RoleRepository roleRepository;
     private final Validator validator;
@@ -20,15 +21,6 @@ public class RoleService implements CrudDtoMapping<Role> {
     private final DtoConverter<Role> dtoConverter;
     private Map<String, Object> response;
 
-    public RoleService(RoleRepository roleRepository, Validator validator,
-                       MessagesHandler<Role> messagesHandler, DtoConverter<Role> dtoConverter) {
-        this.roleRepository = roleRepository;
-        this.validator = validator;
-        this.messagesHandler = messagesHandler;
-        this.dtoConverter = dtoConverter;
-    }
-
-    @Override
     public Map<String, Object> save(Role role) {
         response = new HashMap<>();
         Set<ConstraintViolation<Role>> violations = validator.validate(role);
@@ -43,13 +35,11 @@ public class RoleService implements CrudDtoMapping<Role> {
         return response;
     }
 
-    @Override
     public List<Map<String, Object>> findAll() {
 
         return dtoConverter.EntityToDtoAll(roleRepository.findAll());
     }
 
-    @Override
     public Map<String, Object> findById(Long id) {
         Optional<Role> optionalRole = roleRepository.findById(id);
         return optionalRole
@@ -57,7 +47,6 @@ public class RoleService implements CrudDtoMapping<Role> {
                 .orElseThrow(() -> new RoleNotFoundException(Message.NOT_FOUND));
     }
 
-    @Override
     public Map<String, Object> delete(Long id) {
         response = new HashMap<>();
         Optional<Role> optionalRole = roleRepository.findById(id);
@@ -67,7 +56,6 @@ public class RoleService implements CrudDtoMapping<Role> {
         return response;
     }
 
-    @Override
     public Long count() {
         return roleRepository.count();
     }

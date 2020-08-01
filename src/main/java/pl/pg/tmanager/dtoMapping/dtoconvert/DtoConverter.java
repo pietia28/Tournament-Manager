@@ -59,8 +59,8 @@ public class DtoConverter<T> {
 
     public T DtoToEntity(Object object, T t) {
 
-        Class<?> entityClass = t.getClass();
         Class<?> dtoClass = object.getClass();
+        Class<?> entityClass = t.getClass();
 
         Arrays.asList(entityClass.getDeclaredFields())
         .forEach(

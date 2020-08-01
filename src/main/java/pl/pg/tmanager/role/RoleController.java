@@ -1,5 +1,6 @@
 package pl.pg.tmanager.role;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.pg.tmanager.exception.ExceptionJSONInfo;
 import pl.pg.tmanager.message.Message;
@@ -7,16 +8,11 @@ import pl.pg.tmanager.message.Message;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/role")
 public class RoleController {
-
-
     private final RoleService roleService;
-
-    public RoleController(RoleService roleService) {
-        this.roleService = roleService;
-    }
 
     @PostMapping("")
     public Map<String, Object> save(@RequestBody Role role) {
