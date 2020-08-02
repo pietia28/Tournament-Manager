@@ -1,6 +1,7 @@
 package pl.pg.tmanager.match;
 
 import lombok.Data;
+import pl.pg.tmanager.integration.weather.accuweather.Weather;
 import pl.pg.tmanager.matchevents.matchevent.MatchEvent;
 import pl.pg.tmanager.refeere.Refeere;
 import pl.pg.tmanager.stadium.Stadium;
@@ -42,6 +43,10 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "refeere_id")
     private Refeere refeere;
+
+    @ManyToOne
+    @JoinColumn(name = "weather_id")
+    private Weather weather;
 
     @ManyToMany
     private List<MatchEvent> matchEvents;
