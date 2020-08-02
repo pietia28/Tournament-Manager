@@ -1,7 +1,6 @@
 package pl.pg.tmanager.user;
 
 import lombok.Data;
-import pl.pg.tmanager.dtoMapping.annotation.Dto;
 import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
 import pl.pg.tmanager.role.Role;
 
@@ -67,7 +66,6 @@ public class User {
     @Column(name = "last_login_ip", length = 15)
     private String lastLoginIp;
 
-    @Dto
     @ManyToMany
     private List<Role> role;
 

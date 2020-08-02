@@ -60,6 +60,7 @@ public class Stadium {
 
     private String description;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "voivodeship_id")
     private Voivodeship voivodeship;

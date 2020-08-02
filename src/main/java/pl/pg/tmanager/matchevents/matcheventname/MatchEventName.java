@@ -1,26 +1,25 @@
-package pl.pg.tmanager.voivodeship;
+package pl.pg.tmanager.matchevents.matcheventname;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 @Entity
-@Table(name = "voivodeships")
-public class Voivodeship {
+@Table(name = "events_names")
+public class MatchEventName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @NotNull
-    @NotBlank
-    @Size(max = 25)
-    @Column(length = 25, unique = true)
+    @Size(max = 30)
+    @Column(length = 30)
     private String name;
 
-    public Voivodeship() {
+    public MatchEventName() {
         //JPA Only
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -16,12 +16,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("")
+    @PostMapping()
     public Map<String, Object> save(@RequestBody User user) {
         return userService.save(user);
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<Map<String, Object>> findAll() {
         return userService.findAll();
     }

@@ -10,16 +10,16 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/roles")
 public class RoleController {
     private final RoleService roleService;
 
-    @PostMapping("")
+    @PostMapping()
     public Map<String, Object> save(@RequestBody Role role) {
         return roleService.save(role);
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<Map<String, Object>> findAll() {
         return roleService.findAll();
     }

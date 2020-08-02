@@ -3,7 +3,6 @@ package pl.pg.tmanager.user;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 import pl.pg.tmanager.role.Role;
-
 import java.util.List;
 
 @Data
