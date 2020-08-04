@@ -1,20 +1,44 @@
 package pl.pg.tmanager.match;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-import pl.pg.tmanager.refeere.Refeere;
-import pl.pg.tmanager.stadium.Stadium;
+import lombok.experimental.Accessors;
+import pl.pg.tmanager.integration.weather.accuweather.Weather;
+import pl.pg.tmanager.matchevents.matchevent.MatchEvent;
+import pl.pg.tmanager.referee.RefereeDto;
+import pl.pg.tmanager.stadium.StadiumDto;
+import pl.pg.tmanager.team.Team;
+
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
-@Component
+@Accessors(chain = true)
 public class MatchDto {
-    Long id;
+    private Long id;
+
+    @NotNull
     private Integer matchDay;
+
+    @NotNull
     private LocalDateTime matchDate;
+
+    @NotNull
     private LocalTime start;
+
     private LocalTime end;
-    private Stadium stadium;
-    private Refeere refeere;
+
+    @NotNull
+    private StadiumDto stadium;
+
+    @NotNull
+    private RefereeDto referee;
+
+    private List<MatchEvent> matchEvents;
+
+    @NotNull
+    private List<Team> teams;
+
+    private Weather weather;
 }

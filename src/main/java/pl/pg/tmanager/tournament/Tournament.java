@@ -30,6 +30,8 @@ public class Tournament {
     @NotNull
     private LocalDateTime end;
 
+    private String description;
+
     @ManyToMany
     private List<Match> matches;
 

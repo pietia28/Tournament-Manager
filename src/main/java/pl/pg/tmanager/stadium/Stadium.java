@@ -1,42 +1,38 @@
 package pl.pg.tmanager.stadium;
 
 import lombok.Data;
-import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
+import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pl.pg.tmanager.voivodeship.Voivodeship;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "stadiums")
-@HasForeignEntity(entityName = {"voivodeship"})
 public class Stadium {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @NotBlank
     @Size(max = 100)
     @Column(length = 100, unique = true)
     private String name;
 
-    @NotNull
     @NotBlank
     @Size(max = 100)
     @Column(length = 100)
     private String address;
 
-    @NotNull
     @NotBlank
     @Size(max = 6)
     @Column(length = 6)
     private String zip;
 
-    @NotNull
     @NotBlank
     @Size(max = 50)
     @Column(length = 50)
@@ -60,7 +56,6 @@ public class Stadium {
 
     private String description;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "voivodeship_id")
     private Voivodeship voivodeship;

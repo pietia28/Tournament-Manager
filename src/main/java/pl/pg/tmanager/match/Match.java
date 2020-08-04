@@ -1,48 +1,44 @@
 package pl.pg.tmanager.match;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pl.pg.tmanager.integration.weather.accuweather.Weather;
 import pl.pg.tmanager.matchevents.matchevent.MatchEvent;
-import pl.pg.tmanager.refeere.Refeere;
+import pl.pg.tmanager.referee.Referee;
 import pl.pg.tmanager.stadium.Stadium;
 import pl.pg.tmanager.team.Team;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "matches")
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @NotNull
     @Column(name = "match_day")
     private Integer matchDay;
 
-    @NotNull
     @Column(name = "match_date")
     private LocalDateTime matchDate;
 
-    @NotNull
     private LocalTime start;
 
     private LocalTime end;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "stadium_id")
     private Stadium stadium;
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "refeere_id")
-    private Refeere refeere;
+    @JoinColumn(name = "referee_id")
+    private Referee referee;
 
     @ManyToOne
     @JoinColumn(name = "weather_id")
@@ -58,3 +54,4 @@ public class Match {
         //JPA Only
     }
 }
+//TODO Zminic matchDate na LocalDate

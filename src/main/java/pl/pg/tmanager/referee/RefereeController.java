@@ -1,4 +1,4 @@
-package pl.pg.tmanager.refeere;
+package pl.pg.tmanager.referee;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/refineries")
-public class RefeereController {
+public class RefereeController {
 }

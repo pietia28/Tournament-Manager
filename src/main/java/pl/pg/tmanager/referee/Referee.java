@@ -1,14 +1,16 @@
-package pl.pg.tmanager.refeere;
+package pl.pg.tmanager.referee;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import pl.pg.tmanager.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Accessors(chain = true)
 @Entity
-@Table(name = "refineries")
-public class Refeere {
+@Table(name = "referees")
+public class Referee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -18,7 +20,7 @@ public class Refeere {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Refeere() {
+    public Referee() {
         //JPA Only
     }
 }

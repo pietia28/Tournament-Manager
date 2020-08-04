@@ -1,6 +1,7 @@
 package pl.pg.tmanager.user;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import pl.pg.tmanager.dtoMapping.annotation.HasForeignEntity;
 import pl.pg.tmanager.role.Role;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @HasForeignEntity(entityName = {"role"})
 @Table(name = "users")

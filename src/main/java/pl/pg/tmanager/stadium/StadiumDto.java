@@ -1,11 +1,11 @@
 package pl.pg.tmanager.stadium;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-import pl.pg.tmanager.voivodeship.Voivodeship;
+import lombok.experimental.Accessors;
+import pl.pg.tmanager.voivodeship.VoivodeshipDto;
 
 @Data
-@Component
+@Accessors(chain = true)
 public class StadiumDto {
     private Long id;
     private  String address;
@@ -16,5 +16,6 @@ public class StadiumDto {
     private String mobile;
     private String name;
     private String web;
-    private Voivodeship voivodeship;
+    private String zip;
+    private VoivodeshipDto voivodeship;
 }
