@@ -3,57 +3,38 @@ package pl.pg.tmanager.voivodeship;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.pg.tmanager.dtoMapping.dtoconvert.DtoConverter;
+import pl.pg.tmanager.exception.ObjectNotFoundException;
 import pl.pg.tmanager.message.Message;
-import pl.pg.tmanager.message.MessagesHandler;
-import pl.pg.tmanager.user.UserNotFoundException;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
 @Service
 public class VoivodeshipService {
     private final VoivodeshipRepository voivodeshipRepository;
-    private final Validator validator;
-    private final MessagesHandler<Voivodeship> messagesHandler;
-    private final DtoConverter<Voivodeship> dtoConverter;
-    private Map<String, Object> response;
 
-    public Map<String, Object> save(Voivodeship voivodeship) {
-        response = new HashMap<>();
-        Set<ConstraintViolation<Voivodeship>> violations = validator.validate(voivodeship);
-        if (!violations.isEmpty()) {
-            Map<String, List<String>> errors;
-            errors = messagesHandler.getValidationMessage(validator, voivodeship);
-            response.put(Message.STATUS, Message.VALIDATION_ERROR + errors);
-        } else {
-            voivodeshipRepository.save(dtoConverter.DtoToEntity(voivodeship, new Voivodeship()));
-            response.put(Message.STATUS, Message.OK);
-        }
-        return response;
+    public List<VoivodeshipDto> findAll() {
+        return voivodeshipRepository.findAll().stream()
+                .map(VoivodeshipDtoMapper::EntityToDto)
+                .collect(Collectors.toList());
     }
 
-    public List<Map<String, Object>> findAll() {
-        return dtoConverter.EntityToDtoAll(voivodeshipRepository.findAll());
+    public VoivodeshipDto findById(Long id) {
+        return VoivodeshipDtoMapper.EntityToDto(
+                voivodeshipRepository.findById(id)
+                        .orElseThrow((() -> new ObjectNotFoundException(Message.USER_NOT_FOUND + id)))
+        );
     }
 
-    public Map<String, Object> findById(Long id) {
-        Optional<Voivodeship> optionalVoivodeship = voivodeshipRepository.findById(id);
-        return optionalVoivodeship
-                .map(dtoConverter::EntityToDto)
-                .orElseThrow(() -> new VoivodeshipNotFoundException(Message.NOT_FOUND));
+    public Voivodeship save(VoivodeshipDto voivodeshipDto) {
+        return voivodeshipRepository.save(VoivodeshipDtoMapper.DtoToEntity(voivodeshipDto));
     }
 
-    public Map<String, Object> delete(Long id) {
-        response = new HashMap<>();
-        Optional<Voivodeship> optionalVoivodeship = voivodeshipRepository.findById(id);
-        voivodeshipRepository.delete(
-                optionalVoivodeship.orElseThrow(() -> new UserNotFoundException(Message.NOT_FOUND)));
-        response.put(Message.STATUS, Message.OK);
-        return response;
+    public void delete(Long id) {
+        Voivodeship voivodeship = voivodeshipRepository.findById(id)
+                .orElseThrow((() -> new ObjectNotFoundException(Message.VOIVODESHIP_NOT_FOUND + id)));
+        voivodeshipRepository.deleteById(voivodeship.getId());
     }
 
     public Long count() {

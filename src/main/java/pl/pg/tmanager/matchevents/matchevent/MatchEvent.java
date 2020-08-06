@@ -1,22 +1,21 @@
 package pl.pg.tmanager.matchevents.matchevent;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import pl.pg.tmanager.matchevents.matcheventname.MatchEventName;
 import pl.pg.tmanager.player.Player;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "events")
 public class MatchEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @NotNull
     private LocalTime time;
 
     @ManyToOne

@@ -2,7 +2,6 @@ package pl.pg.tmanager.match;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pl.pg.tmanager.integration.weather.accuweather.Weather;
 import pl.pg.tmanager.matchevents.matchevent.MatchEvent;
 import pl.pg.tmanager.referee.Referee;
@@ -55,3 +54,4 @@ public class Match {
     }
 }
 //TODO Zminic matchDate na LocalDate
+//TODO Dodać pole gospodarza spotkania (hosta)

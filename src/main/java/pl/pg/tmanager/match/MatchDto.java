@@ -2,11 +2,12 @@ package pl.pg.tmanager.match;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import pl.pg.tmanager.integration.weather.accuweather.Weather;
-import pl.pg.tmanager.matchevents.matchevent.MatchEvent;
+import pl.pg.tmanager.integration.weather.accuweather.WeatherDto;
+import pl.pg.tmanager.matchevents.matchevent.MatchEventDto;
+import pl.pg.tmanager.message.Message;
 import pl.pg.tmanager.referee.RefereeDto;
 import pl.pg.tmanager.stadium.StadiumDto;
-import pl.pg.tmanager.team.Team;
+import pl.pg.tmanager.team.TeamDto;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -18,27 +19,27 @@ import java.util.List;
 public class MatchDto {
     private Long id;
 
-    @NotNull
+    @NotNull(message = Message.VALID_NOT_NULL)
     private Integer matchDay;
 
-    @NotNull
+    @NotNull(message = Message.VALID_NOT_NULL)
     private LocalDateTime matchDate;
 
-    @NotNull
+    @NotNull(message = Message.VALID_NOT_NULL)
     private LocalTime start;
 
     private LocalTime end;
 
-    @NotNull
+    @NotNull(message = Message.VALID_NOT_NULL)
     private StadiumDto stadium;
 
-    @NotNull
+    @NotNull(message = Message.VALID_NOT_NULL)
     private RefereeDto referee;
 
-    private List<MatchEvent> matchEvents;
+    private List<MatchEventDto> matchEvents;
 
-    @NotNull
-    private List<Team> teams;
+    @NotNull(message = Message.VALID_NOT_NULL)
+    private List<TeamDto> teams;
 
-    private Weather weather;
+    private WeatherDto weather;
 }

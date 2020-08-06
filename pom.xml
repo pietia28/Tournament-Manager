@@ -12,7 +12,7 @@
     <artifactId>tmanager</artifactId>
     <version>1.0.0</version>
     <name>tmanager</name>
-    <description>Demo project for Spring Boot</description>
+    <description></description>
 
     <properties>
         <java.version>11</java.version>

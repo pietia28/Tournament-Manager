@@ -1,56 +1,61 @@
 package pl.pg.tmanager.voivodeship;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.pg.tmanager.exception.ExceptionJSONInfo;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.pg.tmanager.message.Message;
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/voivodeship")
 public class VoivodeshipController {
     private final VoivodeshipService voivodeshipService;
 
-    public VoivodeshipController(VoivodeshipService voivodeshipService) {
-        this.voivodeshipService = voivodeshipService;
-    }
-
-    @PostMapping("")
-    public Map<String, Object> save(@RequestBody Voivodeship voivodeship) {
-        return voivodeshipService.save(voivodeship);
-    }
-
-    @GetMapping("")
-    public List<Map<String, Object>> findAll() {
-        return voivodeshipService.findAll();
+    @GetMapping()
+    ResponseEntity<List<VoivodeshipDto>> findAll() {
+        return ResponseEntity.ok()
+                .body(voivodeshipService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> findById(@PathVariable Long id) {
-        return voivodeshipService.findById(id);
+    ResponseEntity<VoivodeshipDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok()
+                .body(voivodeshipService.findById(id));
+    }
+
+    @PutMapping()
+    ResponseEntity<VoivodeshipDto> update(@Valid @RequestBody VoivodeshipDto voivodeshipDto) {
+        Voivodeship nVoivodeship = voivodeshipService.save(voivodeshipDto);
+        return ResponseEntity.ok().body(VoivodeshipDtoMapper.EntityToDto(nVoivodeship));
+    }
+
+    @PostMapping()
+    ResponseEntity<URI> save(@Valid @RequestBody VoivodeshipDto voivodeshipDto) {
+        Voivodeship voivodeship = voivodeshipService.save(voivodeshipDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(voivodeship.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Object> delete(@PathVariable Long id) {
-        return voivodeshipService.delete(id);
+    ResponseEntity<Map> delete(@PathVariable Long id) {
+        voivodeshipService.delete(id);
+        Map<String, String> response = new HashMap<>();
+        response.put(Message.STATUS, Message.OK);
+        response.put(Message.MESSAGE, Message.VOIVODESHIP_DELETED + id);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/count")
-    public Long count() {
+    Long count() {
         return voivodeshipService.count();
-    }
-
-    @ExceptionHandler(VoivodeshipNotFoundException.class)
-    @ResponseBody
-    private ExceptionJSONInfo handleVoivodeshipNotFoundException(HttpServletRequest request, Exception ex){
-
-        ExceptionJSONInfo exceptionJSONInfo = new ExceptionJSONInfo();
-        exceptionJSONInfo.setUrl(request.getRequestURL().toString());
-        exceptionJSONInfo.setMessage(ex.getMessage());
-        exceptionJSONInfo.setStatus(Message.ERROR);
-
-        return exceptionJSONInfo;
     }
 }

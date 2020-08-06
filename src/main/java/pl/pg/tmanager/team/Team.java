@@ -1,25 +1,21 @@
 package pl.pg.tmanager.team;
 
 import lombok.Data;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.experimental.Accessors;
 import pl.pg.tmanager.manager.Manager;
 import pl.pg.tmanager.player.Player;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "teams")
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @NotNull
-    @Size(max = 30)
     @Column(length = 30)
     private String name;
 

@@ -1,11 +1,13 @@
 package pl.pg.tmanager.role;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.pg.tmanager.exception.ExceptionJSONInfo;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.pg.tmanager.message.Message;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -14,42 +16,46 @@ import java.util.*;
 public class RoleController {
     private final RoleService roleService;
 
-    @PostMapping()
-    public Map<String, Object> save(@RequestBody Role role) {
-        return roleService.save(role);
-    }
-
     @GetMapping()
-    public List<Map<String, Object>> findAll() {
-        return roleService.findAll();
+    ResponseEntity<List<RoleDto>> findAll() {
+        return ResponseEntity.ok()
+                .body(roleService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> findById(@PathVariable Long id) {
-        return roleService.findById(id);
+    ResponseEntity<RoleDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok()
+                .body(roleService.findById(id));
+    }
+
+    @PutMapping()
+    ResponseEntity<RoleDto> update(@Valid @RequestBody RoleDto roleDto) {
+        Role nRole = roleService.save(roleDto);
+        return ResponseEntity.ok().body(RoleDtoMapper.EntityToDto(nRole));
+    }
+
+    @PostMapping()
+    ResponseEntity<URI> save(@Valid @RequestBody RoleDto roleDto) {
+        Role role = roleService.save(roleDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(role.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Object> delete(@PathVariable Long id) {
-        return roleService.delete(id);
+    ResponseEntity<Map> delete(@PathVariable Long id) {
+        roleService.delete(id);
+        Map<String, String> response = new HashMap<>();
+        response.put(Message.STATUS, Message.OK);
+        response.put(Message.MESSAGE, Message.ROLE_DELETED + id);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/count")
-    public Long count() {
+    Long count() {
         return roleService.count();
     }
-
-    @ExceptionHandler(RoleNotFoundException.class)
-    @ResponseBody
-    private ExceptionJSONInfo handleRoleNotFoundException(HttpServletRequest request, Exception ex){
-
-        ExceptionJSONInfo exceptionJSONInfo = new ExceptionJSONInfo();
-        exceptionJSONInfo.setUrl(request.getRequestURL().toString());
-        exceptionJSONInfo.setMessage(ex.getMessage());
-        exceptionJSONInfo.setStatus(Message.ERROR);
-
-        return exceptionJSONInfo;
-    }
-
 }
 //TODO sprawdzić modyfikatory dostępu

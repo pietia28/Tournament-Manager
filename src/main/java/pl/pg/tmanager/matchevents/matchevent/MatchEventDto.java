@@ -1,14 +1,23 @@
 package pl.pg.tmanager.matchevents.matchevent;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-import pl.pg.tmanager.matchevents.matcheventname.MatchEventName;
+import lombok.experimental.Accessors;
+import pl.pg.tmanager.matchevents.matcheventname.MatchEventNameDto;
+import pl.pg.tmanager.message.Message;
+import pl.pg.tmanager.player.PlayerDto;
+
+import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
 @Data
-@Component
+@Accessors(chain = true)
 public class MatchEventDto {
-    Long id;
+    private Long id;
+
+    @NotNull(message = Message.VALID_NOT_NULL)
     private LocalTime time;
-    private MatchEventName matchEventName;
+
+    private PlayerDto player;
+
+    private MatchEventNameDto matchEventName;
 }

@@ -13,21 +13,20 @@ public class MatchService {
     private final MatchRepository matchRepository;
 
     public List<MatchDto> findAll() {
-        List<Match> matchList = matchRepository.findAll();
-        return matchList.stream()
-                .map(MatchMapper::EntityToDto)
+        return matchRepository.findAll().stream()
+                .map(MatchDtoMapper::EntityToDto)
                 .collect(Collectors.toList());
     }
 
     public MatchDto findById(Long id) {
-        return MatchMapper.EntityToDto(
+        return MatchDtoMapper.EntityToDto(
                 matchRepository.findById(id)
                 .orElseThrow((() -> new ObjectNotFoundException(Message.MATCH_NOT_FOUND + id)))
         );
     }
 
     public Match save(MatchDto matchDto) {
-        return matchRepository.save(MatchMapper.DtoToEntity(matchDto));
+        return matchRepository.save(MatchDtoMapper.DtoToEntity(matchDto));
     }
 
     public void delete(Long id) {

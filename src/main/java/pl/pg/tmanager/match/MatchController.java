@@ -33,7 +33,7 @@ public class MatchController {
     @PutMapping()
     ResponseEntity<MatchDto> update(@Valid @RequestBody MatchDto matchDto) {
         Match nMatch = matchService.save(matchDto);
-        return ResponseEntity.ok().body(MatchMapper.EntityToDto(nMatch));
+        return ResponseEntity.ok().body(MatchDtoMapper.EntityToDto(nMatch));
     }
 
     @PostMapping()

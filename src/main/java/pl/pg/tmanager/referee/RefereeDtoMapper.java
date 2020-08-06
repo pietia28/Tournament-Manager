@@ -1,19 +1,19 @@
 package pl.pg.tmanager.referee;
 
-import pl.pg.tmanager.user.UserMapper;
+import pl.pg.tmanager.user.UserDtoMapper;
 
-public class RefereeMapper {
-    private RefereeMapper() {
+public class RefereeDtoMapper {
+    private RefereeDtoMapper() {
     }
 
     public static Referee DtoToEntity(RefereeDto refereeDto) {
         return new Referee().setId(refereeDto.getId())
-                .setUser(UserMapper.DtoToEntity(refereeDto.getUser()));
+                .setUser(UserDtoMapper.DtoToEntity(refereeDto.getUser()));
     }
 
     public static RefereeDto EntityToDto(Referee referee) {
         return new RefereeDto().setId(referee.getId())
-                .setUser(UserMapper.EntityToDto(referee.getUser()));
+                .setUser(UserDtoMapper.EntityToDto(referee.getUser()));
     }
 
 }

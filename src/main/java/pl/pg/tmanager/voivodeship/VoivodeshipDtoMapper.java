@@ -1,5 +1,5 @@
 package pl.pg.tmanager.voivodeship;
-public class VoivodeshipMapper {
+public class VoivodeshipDtoMapper {
 
     public static Voivodeship DtoToEntity(VoivodeshipDto voivodeshipDto) {
         return new Voivodeship().setId(voivodeshipDto.getId())

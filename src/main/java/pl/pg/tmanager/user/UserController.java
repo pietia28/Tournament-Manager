@@ -1,55 +1,61 @@
 package pl.pg.tmanager.user;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.pg.tmanager.exception.ExceptionJSONInfo;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.pg.tmanager.message.Message;
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @PostMapping()
-    public Map<String, Object> save(@RequestBody User user) {
-        return userService.save(user);
-    }
-
     @GetMapping()
-    public List<Map<String, Object>> findAll() {
-        return userService.findAll();
+    ResponseEntity<List<UserDto>> findAll() {
+        return ResponseEntity.ok()
+                .body(userService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Map<String, Object> findById(@PathVariable Long id) {
-        return userService.findById(id);
+    ResponseEntity<UserDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok()
+                .body(userService.findById(id));
+    }
+
+    @PutMapping()
+    ResponseEntity<UserDto> update(@Valid @RequestBody UserDto userDto) {
+        User nUser = userService.save(userDto);
+        return ResponseEntity.ok().body(UserDtoMapper.EntityToDto(nUser));
+    }
+
+    @PostMapping()
+    ResponseEntity<URI> save(@Valid @RequestBody UserDto userDto) {
+        User user = userService.save(userDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Object> delete(@PathVariable Long id) {
-        return userService.delete(id);
+    ResponseEntity<Map> delete(@PathVariable Long id) {
+        userService.delete(id);
+        Map<String, String> response = new HashMap<>();
+        response.put(Message.STATUS, Message.OK);
+        response.put(Message.MESSAGE, Message.USER_DELETED + id);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/count")
-    public Long count() {
+    Long count() {
         return userService.count();
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    @ResponseBody
-    private ExceptionJSONInfo handleUserNotFoundException(HttpServletRequest request, Exception ex){
-
-        ExceptionJSONInfo exceptionJSONInfo = new ExceptionJSONInfo();
-        exceptionJSONInfo.setUrl(request.getRequestURL().toString());
-        exceptionJSONInfo.setMessage(ex.getMessage());
-        exceptionJSONInfo.setStatus(Message.ERROR);
-
-        return exceptionJSONInfo;
     }
 }

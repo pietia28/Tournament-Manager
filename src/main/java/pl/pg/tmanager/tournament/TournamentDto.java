@@ -1,17 +1,32 @@
 package pl.pg.tmanager.tournament;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-import pl.pg.tmanager.match.Match;
+import lombok.experimental.Accessors;
+import pl.pg.tmanager.match.MatchDto;
+import pl.pg.tmanager.message.Message;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@Component
+@Accessors(chain = true)
 public class TournamentDto {
     private Long id;
+
+    @NotNull(message = Message.VALID_NOT_NULL)
+    @NotBlank(message = Message.VALID_NOT_BALNK)
+    @Size(max = 60, message = Message.VALID_MAX_SIZE + 60)
     private String name;
+
+    @NotNull(message = Message.VALID_NOT_NULL)
     private LocalDateTime start;
+
+    @NotNull(message = Message.VALID_NOT_NULL)
     private LocalDateTime end;
-    private List<Match> matches;
+
+    private String description;
+
+    private List<MatchDto> matches;
 }

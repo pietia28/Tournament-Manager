@@ -1,9 +1,9 @@
 package pl.pg.tmanager.stadium;
 
-import pl.pg.tmanager.voivodeship.VoivodeshipMapper;
+import pl.pg.tmanager.voivodeship.VoivodeshipDtoMapper;
 
-public class StadiumMapper {
-    private StadiumMapper() {
+public class StadiumDtoMapper {
+    private StadiumDtoMapper() {
     }
 
     public static Stadium DtoToEntity(StadiumDto stadiumDto) {
@@ -11,11 +11,11 @@ public class StadiumMapper {
                 .setAddress(stadiumDto.getAddress())
                 .setCity(stadiumDto.getCity())
                 .setContactPerson(stadiumDto.getContactPerson())
-                .setDescription(stadiumDto.getDesciption())
+                .setDescription(stadiumDto.getDescription())
                 .setEmail(stadiumDto.getEmail())
                 .setMobile(stadiumDto.getMobile())
                 .setName(stadiumDto.getName())
-                .setVoivodeship(VoivodeshipMapper.DtoToEntity(stadiumDto.getVoivodeship()))
+                .setVoivodeship(VoivodeshipDtoMapper.DtoToEntity(stadiumDto.getVoivodeship()))
                 .setWeb(stadiumDto.getWeb())
                 .setZip(stadiumDto.getZip());
     }
@@ -24,11 +24,11 @@ public class StadiumMapper {
                 .setAddress(stadium.getAddress())
                 .setCity(stadium.getCity())
                 .setContactPerson(stadium.getContactPerson())
-                .setDesciption(stadium.getDescription())
+                .setDescription(stadium.getDescription())
                 .setEmail(stadium.getEmail())
                 .setMobile(stadium.getMobile())
                 .setName(stadium.getName())
-                .setVoivodeship(VoivodeshipMapper.EntityToDto(stadium.getVoivodeship()))
+                .setVoivodeship(VoivodeshipDtoMapper.EntityToDto(stadium.getVoivodeship()))
                 .setWeb(stadium.getWeb())
                 .setZip(stadium.getZip());
     }
