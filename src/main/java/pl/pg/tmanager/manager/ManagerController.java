@@ -15,7 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/managers")
-public class ManagerController {
+class ManagerController {
     private final ManagerService managerService;
 
     @GetMapping()

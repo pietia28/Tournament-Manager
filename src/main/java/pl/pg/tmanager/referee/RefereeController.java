@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/referees")
-public class RefereeController {
+class RefereeController {
     private final RefereeService refereeService;
 
     @GetMapping()

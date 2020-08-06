@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/stadiums")
-public class StadiumController {
+class StadiumController {
     private final StadiumService stadiumService;
 
     @GetMapping()

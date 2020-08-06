@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/weathers")
-public class WeatherController {
+class WeatherController {
     private final String uri =
             "http://dataservice.accuweather.com//locations/v1/cities/geoposition/search?apikey=kQ6nV61oFq1miq6573a165Rqcor2VXKL&q=52.17,20.805";
 

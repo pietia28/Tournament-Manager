@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/tournaments")
-public class TournamentController {
+class TournamentController {
     private final TournamentService tournamentService;
 
     @GetMapping()

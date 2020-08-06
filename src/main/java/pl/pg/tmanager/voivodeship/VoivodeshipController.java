@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/voivodeship")
-public class VoivodeshipController {
+class VoivodeshipController {
     private final VoivodeshipService voivodeshipService;
 
     @GetMapping()

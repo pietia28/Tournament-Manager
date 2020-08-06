@@ -15,7 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/events")
-public class MatchEventController {
+class MatchEventController {
     private final MatchEventService matchEventService;
 
     @GetMapping()

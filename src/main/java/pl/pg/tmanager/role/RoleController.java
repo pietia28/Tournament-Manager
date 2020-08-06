@@ -13,7 +13,7 @@ import java.util.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/roles")
-public class RoleController {
+class RoleController {
     private final RoleService roleService;
 
     @GetMapping()
