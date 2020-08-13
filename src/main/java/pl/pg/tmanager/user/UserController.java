@@ -30,14 +30,15 @@ class UserController {
     }
 
     @PutMapping()
-    ResponseEntity<UserDto> update(@Valid @RequestBody UserDto userDto) {
-        User nUser = userService.save(userDto);
+    ResponseEntity<UserDto> update(@Valid @RequestBody UserDtoUpdate userDtoUpdate) {
+        System.out.println(userDtoUpdate);
+        User nUser = userService.update(userDtoUpdate);
         return ResponseEntity.ok().body(UserDtoMapper.EntityToDto(nUser));
     }
 
     @PostMapping()
-    ResponseEntity<URI> save(@Valid @RequestBody UserDto userDto) {
-        User user = userService.save(userDto);
+    ResponseEntity<?> save(@Valid @RequestBody UserDtoCreate userDtoCreate) {
+        User user = userService.save(userDtoCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(user.getId())

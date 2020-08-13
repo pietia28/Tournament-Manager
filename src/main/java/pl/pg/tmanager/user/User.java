@@ -26,13 +26,12 @@ public class User {
     @Column(length = 30, unique = true)
     private String nick;
 
-    @Column(length = 255)
     private String password;
 
     @Column(length = 60, unique = true)
     private String email;
 
-    @Column(length = 15, unique = true)
+    @Column(length = 15)
     private String mobile;
 
     private LocalDateTime created;

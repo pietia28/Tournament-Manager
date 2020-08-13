@@ -1,33 +1,54 @@
 package pl.pg.tmanager.user;
 
-import pl.pg.tmanager.role.RoleDtoMapper;
-import java.util.stream.Collectors;
-
 public class UserDtoMapper {
     private UserDtoMapper() {
+    }
+    public static User DtoToEntityUpdate(UserDtoUpdate userDtoUpdate) {
+        return new User().setId(userDtoUpdate.getId())
+                .setFirstName(userDtoUpdate.getFirstName())
+                .setLastName(userDtoUpdate.getLastName())
+                .setEmail(userDtoUpdate.getEmail())
+                .setNick(userDtoUpdate.getNick())
+                .setMobile(userDtoUpdate.getMobile());
+    }
+    public static User DtoToEntityCreate(UserDtoCreate userDtoCreate) {
+        return new User().setId(userDtoCreate.getId())
+                .setEmail(userDtoCreate.getEmail().trim())
+                .setFirstName(userDtoCreate.getFirstName().trim())
+                .setLastName(userDtoCreate.getLastName().trim())
+                .setNick(userDtoCreate.getNick().trim())
+                .setMobile(userDtoCreate.getMobile().trim())
+                .setPassword(userDtoCreate.getPassword());
+                /*.setRole(userDto.getRole().stream()
+                        .map(RoleDtoMapper::DtoToEntity)
+                        .collect(Collectors.toList())
+                );*/
     }
 
     public static User DtoToEntity(UserDto userDto) {
         return new User().setId(userDto.getId())
                 .setEmail(userDto.getEmail())
-                .setFirstName(userDto.getFirtstName())
+                .setFirstName(userDto.getFirstName())
                 .setLastName(userDto.getLastName())
                 .setNick(userDto.getNick())
-                .setRole(userDto.getRole().stream()
+                .setMobile(userDto.getMobile());
+                /*.setRole(userDto.getRole().stream()
                         .map(RoleDtoMapper::DtoToEntity)
                         .collect(Collectors.toList())
-                );
+                );*/
     }
 
     public static UserDto EntityToDto(User user) {
         return new UserDto().setId(user.getId())
-                .setEmail(user.getEmail())
-                .setFirtstName(user.getFirstName())
-                .setLastName(user.getLastName())
-                .setNick(user.getNick())
-                .setRole(user.getRole().stream()
+                .setEmail(user.getEmail().trim())
+                .setFirstName(user.getFirstName().trim())
+                .setLastName(user.getLastName().trim())
+                .setNick(user.getNick().trim())
+                .setMobile(user.getMobile().trim());
+                /*.setRole(user.getRole().stream()
                         .map(RoleDtoMapper::EntityToDto)
                         .collect(Collectors.toList())
-                );
+                );*/
     }
 }
+//TODO pododawać TRIM

@@ -12,6 +12,7 @@ public class Message {
     public static final String VALID_NOT_NULL = "Cannot be null";
     public static final String VALID_NOT_BALNK = "Cannot be blank";
     public static final String VALID_MAX_SIZE = "Size cannot be larger than ";
+    public static final String VALID_EMAIL = "Not valid email address";
 
     /*--------------Match------------------*/
     public static final String MATCH_NOT_FOUND = "No match found for id ";
@@ -56,6 +57,8 @@ public class Message {
     /*--------------User------------------*/
     public static final String USER_NOT_FOUND = "No user found for id ";
     public static final String USER_DELETED = "Successfully deleted user on id ";
+    public static final String USER_EMAIL_EXIST = "Email address must be unique";
+    public static final String USER_NICK_EXIST = "Nick must be unique";
 
     /*--------------Voivodeship------------------*/
     public static final String VOIVODESHIP_NOT_FOUND = "No voivodeship found for id ";

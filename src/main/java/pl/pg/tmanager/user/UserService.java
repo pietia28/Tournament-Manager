@@ -5,7 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.pg.tmanager.exception.ObjectNotFoundException;
 import pl.pg.tmanager.message.Message;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -27,8 +31,12 @@ public class UserService {
         );
     }
 
-    public User save(UserDto userDto) {
-        return userRepository.save(UserDtoMapper.DtoToEntity(userDto));
+    public User update(UserDtoUpdate userDtoUpdate) {
+        return userRepository.save(UserDtoMapper.DtoToEntityUpdate(userDtoUpdate));
+    }
+
+    public User save(UserDtoCreate userDtoCreate) {
+        return userRepository.save(UserDtoMapper.DtoToEntityCreate(userDtoCreate));
     }
 
     public void delete(Long id) {

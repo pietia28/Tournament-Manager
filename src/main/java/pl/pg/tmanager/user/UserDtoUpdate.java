@@ -3,16 +3,17 @@ package pl.pg.tmanager.user;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import pl.pg.tmanager.message.Message;
-import pl.pg.tmanager.role.RoleDto;
+import pl.pg.tmanager.validation.user.EmailUnique;
+import pl.pg.tmanager.validation.user.NickUnique;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class UserDto {
+public class UserDtoUpdate {
     private Long id;
 
     @NotNull(message = Message.VALID_NOT_NULL)
@@ -25,11 +26,14 @@ public class UserDto {
     @Size(max = 30, message = Message.VALID_MAX_SIZE)
     private String lastName;
 
+    @EmailUnique(message = Message.USER_EMAIL_EXIST)
+    @Email(message = Message.VALID_EMAIL)
     @NotNull(message = Message.VALID_NOT_NULL)
     @NotBlank(message = Message.VALID_NOT_BALNK)
     @Size(max = 60, message = Message.VALID_MAX_SIZE + 60)
     private String email;
 
+    @NickUnique(message = Message.USER_NICK_EXIST)
     @NotNull(message = Message.VALID_NOT_NULL)
     @NotBlank(message = Message.VALID_NOT_BALNK)
     @Size(max = 30, message = Message.VALID_MAX_SIZE + 30)
