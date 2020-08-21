@@ -32,6 +32,9 @@ public class UserService {
     }
 
     public User update(UserDtoUpdate userDtoUpdate) {
+        User user = userRepository.findById(userDtoUpdate.getId())
+                .orElseThrow(() -> new ObjectNotFoundException(Message.USER_NOT_FOUND + userDtoUpdate.getId()));
+        userDtoUpdate.setPassword(user.getPassword());
         return userRepository.save(UserDtoMapper.DtoToEntityUpdate(userDtoUpdate));
     }
 

@@ -12,10 +12,10 @@ public class TournamentDtoMapper {
                 .setDescription(tournamentDto.getDescription())
                 .setEnd(tournamentDto.getEnd())
                 .setName(tournamentDto.getName())
-                .setStart(tournamentDto.getStart())
-                .setMatches(tournamentDto.getMatches().stream()
+                .setStart(tournamentDto.getStart());
+                /*.setMatches(tournamentDto.getMatches().stream()
                         .map(MatchDtoMapper::DtoToEntity)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()));*/
     }
 
     public static TournamentDto EntityToDto(Tournament tournament) {
@@ -23,9 +23,9 @@ public class TournamentDtoMapper {
                 .setDescription(tournament.getDescription())
                 .setEnd(tournament.getEnd())
                 .setName(tournament.getName())
-                .setStart(tournament.getStart())
-                .setMatches(tournament.getMatches().stream()
+                .setStart(tournament.getStart());
+                /*.setMatches(tournament.getMatches().stream()
                         .map(MatchDtoMapper::EntityToDto)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()));*/
     }
 }

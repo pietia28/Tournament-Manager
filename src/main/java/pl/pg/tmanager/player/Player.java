@@ -15,8 +15,11 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "player_number")
+    private Short playerNumber;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
 
     public Player() {

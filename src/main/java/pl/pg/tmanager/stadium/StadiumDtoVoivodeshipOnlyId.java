@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import pl.pg.tmanager.message.Message;
 import pl.pg.tmanager.voivodeship.VoivodeshipDto;
+import pl.pg.tmanager.voivodeship.VoivodeshipOnlyIdDto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +13,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Accessors(chain = true)
-public class StadiumDto {
+public class StadiumDtoVoivodeshipOnlyId {
     private Long id;
 
     @NotNull(message = Message.VALID_NOT_NULL)
@@ -50,5 +51,5 @@ public class StadiumDto {
 
     private String description;
 
-    private VoivodeshipDto voivodeship;
+    private VoivodeshipOnlyIdDto voivodeship;
 }

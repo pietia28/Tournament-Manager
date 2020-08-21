@@ -17,6 +17,12 @@ import java.util.Map;
 class TeamController {
     private final TeamService teamService;
 
+    @GetMapping("/extend/{id}")
+    ResponseEntity<TeamDtoExtended> findAByIdExtended(@PathVariable Long id) {
+        return ResponseEntity.ok()
+                .body(teamService.findAllEByIdxtended(id));
+    }
+
     @GetMapping()
     ResponseEntity<List<TeamDto>> findAll() {
         return ResponseEntity.ok()

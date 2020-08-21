@@ -2,9 +2,12 @@ package pl.pg.tmanager.team;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import pl.pg.tmanager.manager.Manager;
 import pl.pg.tmanager.manager.ManagerDto;
 import pl.pg.tmanager.message.Message;
+import pl.pg.tmanager.player.Player;
 import pl.pg.tmanager.player.PlayerDto;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,7 +15,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class TeamDto {
+public class TeamDtoExtended {
     private Long id;
 
     @NotNull(message = Message.VALID_NOT_NULL)
@@ -21,4 +24,8 @@ public class TeamDto {
     private String name;
 
     private String description;
+
+    private List<ManagerDto> managers;
+
+    private List<PlayerDto> players;
 }

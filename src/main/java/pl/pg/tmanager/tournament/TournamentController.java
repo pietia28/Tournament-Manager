@@ -37,6 +37,7 @@ class TournamentController {
 
     @PostMapping()
     ResponseEntity<URI> save(@Valid @RequestBody TournamentDto tournamentDto) {
+        System.out.println("TEST");
         Tournament tournament = tournamentService.save(tournamentDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

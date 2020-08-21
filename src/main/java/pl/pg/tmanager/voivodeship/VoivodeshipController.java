@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/voivodeship")
+@RequestMapping("/voivodeships")
 class VoivodeshipController {
     private final VoivodeshipService voivodeshipService;
 

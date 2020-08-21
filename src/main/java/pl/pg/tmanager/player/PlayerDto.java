@@ -13,5 +13,8 @@ public class PlayerDto {
     private Long id;
 
     @NotNull(message = Message.VALID_NOT_NULL)
+    private Short playerNumber;
+
+    @NotNull(message = Message.VALID_NOT_NULL)
     private UserDto user;
 }

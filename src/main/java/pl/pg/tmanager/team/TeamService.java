@@ -18,6 +18,13 @@ public class TeamService {
                 .collect(Collectors.toList());
     }
 
+    public TeamDtoExtended findAllEByIdxtended(Long id) {
+        return TeamDtoMapper.EntityToDtoExtended(
+                teamRepository.findById(id)
+                        .orElseThrow((() -> new ObjectNotFoundException(Message.TEAM_NOT_FOUND + id)))
+        );
+    }
+
     public TeamDto findById(Long id) {
         return TeamDtoMapper.EntityToDto(
                 teamRepository.findById(id)

@@ -16,8 +16,10 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     private String name;
+
+    private String description;
 
     @ManyToMany
     private List<Manager> managers;
@@ -29,3 +31,4 @@ public class Team {
         //JPA Only
     }
 }
+//TODO dodać datę utworzenia

@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 import pl.pg.tmanager.user.UserRepository;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
 
 @RequiredArgsConstructor
-public class EmailUniqueCheck implements ConstraintValidator<EmailUnique, String> {
+public class EmailUniqueValidate implements ConstraintValidator<EmailUnique, String> {
     private final UserRepository userRepository;
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
@@ -15,6 +16,8 @@ public class EmailUniqueCheck implements ConstraintValidator<EmailUnique, String
 
     @Override
     public void initialize(EmailUnique constraintAnnotation) {
-
+        System.out.println("DUUUUUUUUUUUUUUPA");
+        System.out.println(Arrays.stream(constraintAnnotation.payload()).findFirst());
     }
+
 }

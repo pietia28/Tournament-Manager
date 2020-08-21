@@ -26,7 +26,6 @@ public class UserDtoCreate {
     @Size(max = 30, message = Message.VALID_MAX_SIZE)
     private String lastName;
 
-    @EmailUnique(message = Message.USER_EMAIL_EXIST)
     @Email(message = Message.VALID_EMAIL)
     @NotNull(message = Message.VALID_NOT_NULL)
     @NotBlank(message = Message.VALID_NOT_BALNK)
@@ -37,7 +36,6 @@ public class UserDtoCreate {
     @NotBlank(message = Message.VALID_NOT_BALNK)
     private String password;
 
-    @NickUnique(message = Message.USER_NICK_EXIST)
     @NotNull(message = Message.VALID_NOT_NULL)
     @NotBlank(message = Message.VALID_NOT_BALNK)
     @Size(max = 30, message = Message.VALID_MAX_SIZE + 30)

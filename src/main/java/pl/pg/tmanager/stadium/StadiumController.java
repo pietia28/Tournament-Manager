@@ -30,14 +30,14 @@ class StadiumController {
     }
 
     @PutMapping()
-    ResponseEntity<StadiumDto> update(@Valid @RequestBody StadiumDto stadiumDto) {
-        Stadium nStadium = stadiumService.save(stadiumDto);
+    ResponseEntity<StadiumDto> update(@Valid @RequestBody StadiumDtoVoivodeshipOnlyId stadiumDtoVoivodeshipOnlyId) {
+        Stadium nStadium = stadiumService.save(stadiumDtoVoivodeshipOnlyId);
         return ResponseEntity.ok().body(StadiumDtoMapper.EntityToDto(nStadium));
     }
 
     @PostMapping()
-    ResponseEntity<URI> save(@Valid @RequestBody StadiumDto stadiumDto) {
-        Stadium stadium = stadiumService.save(stadiumDto);
+    ResponseEntity<URI> save(@Valid @RequestBody StadiumDtoVoivodeshipOnlyId stadiumDtoVoivodeshipOnlyId) {
+        Stadium stadium = stadiumService.save(stadiumDtoVoivodeshipOnlyId);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(stadium.getId())

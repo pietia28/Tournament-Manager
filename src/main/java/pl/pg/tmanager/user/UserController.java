@@ -31,7 +31,6 @@ class UserController {
 
     @PutMapping()
     ResponseEntity<UserDto> update(@Valid @RequestBody UserDtoUpdate userDtoUpdate) {
-        System.out.println(userDtoUpdate);
         User nUser = userService.update(userDtoUpdate);
         return ResponseEntity.ok().body(UserDtoMapper.EntityToDto(nUser));
     }
@@ -55,8 +54,14 @@ class UserController {
         return ResponseEntity.ok().body(response);
     }
 
+    /*@PostMapping{"/password/update"}
+    ResponseEntity<?> passwordUpdate(@PathVariable UserDtoPassword userDtoPassword) {
+
+    }*/
+
     @GetMapping("/count")
     Long count() {
         return userService.count();
     }
 }
+//TODO dopisać zmianę hasła

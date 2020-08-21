@@ -1,5 +1,6 @@
 package pl.pg.tmanager.exception;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +20,16 @@ public class RestExceptionAdvice {
                 .message(HttpStatus.NOT_FOUND.getReasonPhrase())
                 .status(HttpStatus.NOT_FOUND.value())
                 .description(ex.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseErrorDetails handleSQLIntegrityConstraintViolationException (DataIntegrityViolationException ex) {
+        return ResponseErrorDetails.builder()
+                .message(ex.getMostSpecificCause().getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .description(HttpStatus.BAD_REQUEST.getReasonPhrase())
                 .build();
     }
 

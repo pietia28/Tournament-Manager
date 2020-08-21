@@ -3,9 +3,6 @@ package pl.pg.tmanager.user;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import pl.pg.tmanager.message.Message;
-import pl.pg.tmanager.validation.user.EmailUnique;
-import pl.pg.tmanager.validation.user.NickUnique;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,18 +23,18 @@ public class UserDtoUpdate {
     @Size(max = 30, message = Message.VALID_MAX_SIZE)
     private String lastName;
 
-    @EmailUnique(message = Message.USER_EMAIL_EXIST)
     @Email(message = Message.VALID_EMAIL)
     @NotNull(message = Message.VALID_NOT_NULL)
     @NotBlank(message = Message.VALID_NOT_BALNK)
     @Size(max = 60, message = Message.VALID_MAX_SIZE + 60)
     private String email;
 
-    @NickUnique(message = Message.USER_NICK_EXIST)
     @NotNull(message = Message.VALID_NOT_NULL)
     @NotBlank(message = Message.VALID_NOT_BALNK)
     @Size(max = 30, message = Message.VALID_MAX_SIZE + 30)
     private String nick;
+
+    private String password;
 
     @Size(max = 15, message = Message.VALID_MAX_SIZE + 15)
     private String mobile;

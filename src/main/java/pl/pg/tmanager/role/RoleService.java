@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.pg.tmanager.exception.ObjectNotFoundException;
 import pl.pg.tmanager.message.Message;
+import pl.pg.tmanager.user.User;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,7 +39,12 @@ public class RoleService {
         roleRepository.deleteById(role.getId());
     }
 
+    public Role getRole(Long id) {
+        return roleRepository.findRoleByUserId(id);
+    }
+
     public Long count() {
         return roleRepository.count();
     }
 }
+//TODO Modyfikatory dostępu

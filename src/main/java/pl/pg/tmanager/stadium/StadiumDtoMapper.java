@@ -32,4 +32,18 @@ public class StadiumDtoMapper {
                 .setWeb(stadium.getWeb())
                 .setZip(stadium.getZip());
     }
+
+    public static Stadium DtoToEntityVoivodeshipOnlyId(StadiumDtoVoivodeshipOnlyId stadiumDtoVoivodeshipOnlyId) {
+        return new Stadium().setId(stadiumDtoVoivodeshipOnlyId.getId())
+                .setAddress(stadiumDtoVoivodeshipOnlyId.getAddress())
+                .setCity(stadiumDtoVoivodeshipOnlyId.getCity())
+                .setContactPerson(stadiumDtoVoivodeshipOnlyId.getContactPerson())
+                .setDescription(stadiumDtoVoivodeshipOnlyId.getDescription())
+                .setEmail(stadiumDtoVoivodeshipOnlyId.getEmail())
+                .setMobile(stadiumDtoVoivodeshipOnlyId.getMobile())
+                .setName(stadiumDtoVoivodeshipOnlyId.getName())
+                .setVoivodeship(VoivodeshipDtoMapper.DtoToEntityOnlyId(stadiumDtoVoivodeshipOnlyId.getVoivodeship()))
+                .setWeb(stadiumDtoVoivodeshipOnlyId.getWeb())
+                .setZip(stadiumDtoVoivodeshipOnlyId.getZip());
+    }
 }

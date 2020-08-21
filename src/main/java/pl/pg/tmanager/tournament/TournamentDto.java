@@ -7,6 +7,7 @@ import pl.pg.tmanager.message.Message;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,12 +22,10 @@ public class TournamentDto {
     private String name;
 
     @NotNull(message = Message.VALID_NOT_NULL)
-    private LocalDateTime start;
+    private LocalDate start;
 
     @NotNull(message = Message.VALID_NOT_NULL)
-    private LocalDateTime end;
+    private LocalDate end;
 
     private String description;
-
-    private List<MatchDto> matches;
 }

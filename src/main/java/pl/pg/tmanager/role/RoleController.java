@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.pg.tmanager.message.Message;
+import pl.pg.tmanager.user.User;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -53,6 +54,10 @@ class RoleController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/test/{id}")
+    Role getRole(@PathVariable Long id) {
+        return roleService.getRole(id);
+    }
     @GetMapping("/count")
     Long count() {
         return roleService.count();

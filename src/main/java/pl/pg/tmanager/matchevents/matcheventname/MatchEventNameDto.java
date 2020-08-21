@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import pl.pg.tmanager.message.Message;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -12,7 +13,8 @@ import javax.validation.constraints.Size;
 public class MatchEventNameDto {
     private Long id;
 
-    @Size(max = 30, message = Message.VALID_MAX_SIZE + 30)
     @NotNull(message = Message.VALID_NOT_NULL)
+    @NotBlank(message = Message.VALID_NOT_BALNK)
+    @Size(max = 30, message = Message.VALID_MAX_SIZE + 30)
     private String name;
 }

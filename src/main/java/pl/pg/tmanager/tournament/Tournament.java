@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import pl.pg.tmanager.match.Match;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class Tournament {
     @Column(length = 60, unique = true)
     private String name;
 
-    private LocalDateTime start;
+    private LocalDate start;
 
-    private LocalDateTime end;
+    private LocalDate end;
 
     private String description;
 
@@ -32,3 +33,4 @@ public class Tournament {
         //JPA Only
     }
 }
+//TODO dodać sprawdzenia czy data zakończenia jest póżniej niż rozpoczęcia

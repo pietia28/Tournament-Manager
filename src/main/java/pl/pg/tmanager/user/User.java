@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 import pl.pg.tmanager.role.Role;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -44,8 +45,8 @@ public class User {
     @Column(name = "last_login_ip", length = 15)
     private String lastLoginIp;
 
-    @ManyToMany
-    private List<Role> role;
+    //@ManyToMany
+    //private List<Role> role = new ArrayList<>();
 
     public User() {
         //JPA Only
@@ -61,3 +62,4 @@ public class User {
         updated = LocalDateTime.now();
     }
 }
+//TODO Tranactional

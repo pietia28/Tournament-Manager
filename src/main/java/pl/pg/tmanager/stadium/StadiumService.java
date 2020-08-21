@@ -27,8 +27,8 @@ public class StadiumService {
         );
     }
 
-    public Stadium save(StadiumDto stadiumDto) {
-        return stadiumRepository.save(StadiumDtoMapper.DtoToEntity(stadiumDto));
+    public Stadium save(StadiumDtoVoivodeshipOnlyId stadiumDtoVoivodeshipOnlyId) {
+        return stadiumRepository.save(StadiumDtoMapper.DtoToEntityVoivodeshipOnlyId(stadiumDtoVoivodeshipOnlyId));
     }
 
     public void delete(Long id) {
